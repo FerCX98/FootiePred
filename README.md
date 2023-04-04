@@ -1,3 +1,6 @@
+*Work in Progress*
+The match dataset I am using: https://www.kaggle.com/datasets/hugomathien/soccer (the Match dataset was too large to include here)
+
 This database contains matches from 2008 to 2016. This is over 25000 matches spread across the 8 years that it covers. Football just as the world is changing quickly, and at the time of these matches, in my opinion football was a different game. However just as with most other machine learning tasks, at the heart of this project will be finding correlations between information that can be applied regardless of whether a match took place in 2008, or whether it will take place next week. 
 The majority of the features I will be using will be coming from the FIFA video games. For those unfamiliar with it, it is a video game made after real life football. The players in the game are all given ratings from 1 to 100 in regards to attributes that are needed considered to be important to any football player. These are 29 base stats for outfield players, and in the case of goalkeepers they are only given 7. On top of these, every player has an overall rating, as well as a potential rating, which just refers to their maximum expected potential of becoming a better version of themselves in the future. 
 For goalkeepers, the attributes are as follows:
