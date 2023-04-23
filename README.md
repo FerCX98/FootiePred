@@ -160,3 +160,30 @@ This is to see how much confidence it is possible to have in a given prediction 
 0.95 --> 5 / 5 --> 100.0%
 0.96 --> 0 / 0 --> 0.0%
 0.97 --> 4 / 4 --> 100.0%
+
+It came to me that I need a new model to better capture the essence of the two-team competing against each other, and that the all the values are not together in this sense. 
+For my first try, I came up with the idea of subtracting the attributes of the players and putting this as a feature into the model: So Home player 2 dribbling – away player 2 dribbling will be the player 2 dribbling value. This can be a negative value if the away player is better at this, but that is fine.
+a    b    c   <-- classified as
+   93 2626 1010 |    a = 0
+  131 5613  922 |    b = 1
+  111 2125 1847 |    c = 2
+As you can see here, home wins are very well classified, draws are terrible once again, and away wins are not looking good. But again, the distribution of the examples is not too good, 3729 draws, 6666 home wins and 4083 away wins, so I have to deal with that. Hopefully the overall will improve once I equalized the instances in the dataset. So, I used the Weka Spreadsubsample supervised instance filter to deal with oversampling. I chose to do this instead of under sampling because I always want to work on 100% real data, most of the times I just don’t like to work with generated data. This reduced the number of each class instances to 3729 as that was the minimum of the draw class instances.
+Even though the overall accuracy decreased, the confusion matrix looked a lot better after this:
+a    b    c   <-- classified as
+  975 1386 1368 |    a = 0
+  854 2028  847 |    b = 1
+  816  848 2065 |    c = 2
+Afterwards I took it onto the whole data, after equalling the samples, there was 5362 of each. 
+This resulted in an 86.37% accuracy, which is a whopping almost 8% accuracy over the previous model, and overall, a 19.63% improvement over purely guessing. It clear now to me that this model is the superior model, and that my hunch that the previous did not capture the fact that these teams and players are playing against each other and not playing together was a problem. 
+    a    b    c   <-- classified as
+ 1505 1915 1942 |    a = 0
+ 1384 2919 1059 |    b = 1
+ 1323 1134 2905 |    c = 2
+
+Now here is an interesting occurance: initially I was using Random Forst as that was the best, but in overall accuracy without unifying the draws, with this model it was actually outdone by naïve bayes, 46.66-45.45.56. However when looking at their confusion matrixes(naïve bayes is below), bayes only had a 85.59% accuracy while unifies with draws. Therefore with my way treating draws, random forest is still the better choice. However I have to take a note here that should anyone in the future choose not to treat the draws in a unified way as I am at the moment, naïve bayes definitely worths a look.
+   a    b    c   <-- classified as
+ 1334 2017 2011 |    a = 0
+ 1125 3101 1136 |    b = 1
+ 1109 1182 3071 |    c = 2
+The next thing I have to do is try my new model on neural network, I have high hopes.
+
